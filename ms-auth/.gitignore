@@ -1,0 +1,21 @@
+### IntelliJ IDEA ###
+.idea/
+*.iml
+
+### Build ###
+build/
+out/
+.gradle/
+
+### Logs ###
+logs/
+*.log
+
+### JARs ###
+*.jar
+
+### OS ###
+.DS_Store
+
+### Docker ###
+*.env
