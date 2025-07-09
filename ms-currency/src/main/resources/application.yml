@@ -4,10 +4,19 @@ server:
 spring:
   application:
     name: ms-currency
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/currency_db
+    url: jdbc:postgresql://postgres:5432/currency_db
     username: postgres
     password: postgres
+
+  data:
+    redis:
+      url: redis://redis:6379  # Docker-da Redis servisinə qoşulmaq üçün
+
+  cache:
+    type: redis
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,4 +33,4 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://service-discovery:8761/eureka
