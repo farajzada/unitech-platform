@@ -10,6 +10,5 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CurrencyRequest {
-    private String code;
-    private BigDecimal rate;
+
 }
