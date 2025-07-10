@@ -14,15 +14,18 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CurrencyRate {
+public class ExchangeRate {
 
     @Id
-    private String code;
+    private Long id;
 
-    @Column(nullable = false,length = 100)
-    private String name;
+    @Column(nullable = false,length = 3)
+    private String baseCurrency;
 
-    @Column(nullable = false,precision = 10,scale = 4)
+    @Column(nullable = false,length = 3)
+    private String targetCurrency;
+
+    @Column(nullable = false,precision = 12,scale = 6)
     private BigDecimal rate;
 
     @Column(nullable = false)
