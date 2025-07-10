@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CurrencyRequest {
-
+public class CurrencyRateRequest {
+    private String fromCode;
+    private String toCode;
+    private BigDecimal amount;
 }

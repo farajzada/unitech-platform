@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Currency {
+public class CurrencyRate {
 
     @Id
     private String code;
