@@ -5,13 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CurrencyResponse {
-    private BigDecimal convertedAmount;
-    private String fromCode;
-    private String toCode;
-    private BigDecimal rateUsed;
+public class ApiResponseDto {
+    private Map<String,BigDecimal> data;
 }
