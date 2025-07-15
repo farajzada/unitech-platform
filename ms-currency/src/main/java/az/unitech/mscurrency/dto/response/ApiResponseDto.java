@@ -5,11 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiResponseDto {
-    private Map<String,BigDecimal> data;
+    private boolean success;
+    private String base;
+    private LocalDate date;
+    private Long timestamp;
+    private Map<String,BigDecimal> rates;
 }
