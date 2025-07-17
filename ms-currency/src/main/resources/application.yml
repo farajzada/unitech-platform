@@ -6,9 +6,10 @@ spring:
     name: ms-currency
 
   datasource:
-    url: jdbc:postgresql://postgres:5432/currency_db
+    url: jdbc:postgresql://localhost:5432/currency_db
     username: postgres
     password: 12345
+    driver-class-name: org.postgresql.Driver
 
   data:
     redis:
