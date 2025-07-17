@@ -7,6 +7,7 @@ import az.unitech.mscurrency.dto.response.ApiResponseDto;
 import az.unitech.mscurrency.exception.CurrencyFetchException;
 import az.unitech.mscurrency.exception.RateNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,7 @@ import java.util.Map;
 public class RateSyncService {
     private final CurrencyApiClient currencyApiClient;
     private final ExchangeRateRepo exchangeRateRepo;
+    private final RedisTemplate<String,Object> redisTemplate;
 
     @Scheduled(fixedRate = 3600000)
     public void sync() {
@@ -46,7 +48,11 @@ public class RateSyncService {
                     .targetCurrency(entry.getKey())
                     .date(date)
                     .build();
+
             exchangeRateList.add(exchangeRate);
+
+            String redisKey=entry.getKey()+":"+entry.getValue();
+            redisTemplate.opsForValue().set(redisKey,exchangeRate);
         }
         exchangeRateRepo.saveAll(exchangeRateList);
     }
