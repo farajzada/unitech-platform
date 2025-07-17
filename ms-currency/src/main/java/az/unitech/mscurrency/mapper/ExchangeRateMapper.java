@@ -1,12 +1,13 @@
 package az.unitech.mscurrency.mapper;
 
 import az.unitech.mscurrency.domain.entity.ExchangeRate;
+import az.unitech.mscurrency.dto.request.CreateRateRequest;
 import az.unitech.mscurrency.dto.response.ExchangeRateDto;
 
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 
-public class ExchangeRateMapper  {
+    public class ExchangeRateMapper  {
 
     ExchangeRate toEntity(ExchangeRateDto dto){
         if(dto == null) return null;
@@ -20,7 +21,6 @@ public class ExchangeRateMapper  {
                 .build();
     }
 
-
     ExchangeRateDto toDto(ExchangeRate entity){
         if(entity == null) return null;
 
@@ -29,6 +29,18 @@ public class ExchangeRateMapper  {
                 .from(entity.getBaseCurrency())
                 .to(entity.getTargetCurrency())
                 .updatedAt(LocalDate.now())
+                .build();
+    }
+
+
+    ExchangeRate toEntity(CreateRateRequest createRateRequest){
+        if(createRateRequest == null) return null;
+
+        return ExchangeRate.builder()
+                .rate(createRateRequest.getRate())
+                .baseCurrency(createRateRequest.getBaseCurrency())
+                .targetCurrency(createRateRequest.getTargetCurrency())
+                .date(LocalDate.now())
                 .build();
     }
 }

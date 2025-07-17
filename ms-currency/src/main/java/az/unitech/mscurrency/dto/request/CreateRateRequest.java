@@ -6,14 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ExchangeRateRequest {
+@AllArgsConstructor
+public class CreateRateRequest {
     @NotBlank
-    private String from;
+    private String baseCurrency;
 
     @NotBlank
-    private String to;
+    private String targetCurrency;
+
+    private BigDecimal rate;
+    private LocalDate date;
 }
