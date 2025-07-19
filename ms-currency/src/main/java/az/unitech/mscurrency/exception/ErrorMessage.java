@@ -5,4 +5,5 @@ public enum ErrorMessage {
     EXTERNAL_API_FAILURE,
     INVALID_CURRENCY_CODE,
     CURRENCY_FETCH_FAILED,
+    BAD_REQUEST
 }
