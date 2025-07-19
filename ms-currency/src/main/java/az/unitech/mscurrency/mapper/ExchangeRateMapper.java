@@ -3,13 +3,15 @@ package az.unitech.mscurrency.mapper;
 import az.unitech.mscurrency.domain.entity.ExchangeRate;
 import az.unitech.mscurrency.dto.request.CreateRateRequest;
 import az.unitech.mscurrency.dto.response.ExchangeRateDto;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 
-    public class ExchangeRateMapper  {
+@Component
+public class ExchangeRateMapper  {
 
-    ExchangeRate toEntity(ExchangeRateDto dto){
+    public ExchangeRate toEntity(ExchangeRateDto dto){
         if(dto == null) return null;
 
         return ExchangeRate.builder()
@@ -21,19 +23,18 @@ import java.time.ZoneOffset;
                 .build();
     }
 
-    ExchangeRateDto toDto(ExchangeRate entity){
+    public ExchangeRateDto toDto(ExchangeRate entity){
         if(entity == null) return null;
 
         return ExchangeRateDto.builder()
                 .rate(entity.getRate())
                 .from(entity.getBaseCurrency())
                 .to(entity.getTargetCurrency())
-                .updatedAt(LocalDate.now())
+                .updatedAt(entity.getDate())
                 .build();
     }
 
-
-    ExchangeRate toEntity(CreateRateRequest createRateRequest){
+    public ExchangeRate toEntity(CreateRateRequest createRateRequest){
         if(createRateRequest == null) return null;
 
         return ExchangeRate.builder()
