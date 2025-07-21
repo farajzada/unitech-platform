@@ -33,6 +33,5 @@ public class ExchangeRate {
     @Column(nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false)
     private Long timestamp;
 }

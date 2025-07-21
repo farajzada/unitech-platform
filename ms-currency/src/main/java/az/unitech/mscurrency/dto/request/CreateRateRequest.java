@@ -19,5 +19,4 @@ public class CreateRateRequest {
     private String targetCurrency;
 
     private BigDecimal rate;
-    private LocalDate date;
 }

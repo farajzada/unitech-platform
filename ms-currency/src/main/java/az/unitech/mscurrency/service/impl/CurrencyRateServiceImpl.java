@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     @Override
     public ExchangeRateDto createRate(CreateRateRequest createRateRequest) {
         ExchangeRate exchangeRate=exchangeRateMapper.toEntity(createRateRequest);
+        exchangeRate.setDate(LocalDate.now());
         ExchangeRate savedRate=exchangeRateRepo.save(exchangeRate);
         return exchangeRateMapper.toDto(savedRate);
     }

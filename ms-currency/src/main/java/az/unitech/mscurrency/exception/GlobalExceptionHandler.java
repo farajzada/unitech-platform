@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(CurrencyFetchException.class)
+    @ExceptionHandler(Exception.class)
     public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(Exception exception){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 GlobalExceptionResponse.builder()
