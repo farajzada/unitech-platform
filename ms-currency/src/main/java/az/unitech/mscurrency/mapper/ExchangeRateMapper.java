@@ -27,6 +27,7 @@ public class ExchangeRateMapper  {
         if(entity == null) return null;
 
         return ExchangeRateDto.builder()
+                .id(entity.getId())
                 .rate(entity.getRate())
                 .from(entity.getBaseCurrency())
                 .to(entity.getTargetCurrency())
