@@ -36,16 +36,16 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(Exception exception){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                GlobalExceptionResponse.builder()
-                        .uuid(UUID.randomUUID())
-                        .error(ErrorMessage.BAD_REQUEST)
-                        .message(exception.getMessage())
-                        .timestamp(LocalDateTime.now())
-                        .build()
-        );
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(Exception exception){
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+//                GlobalExceptionResponse.builder()
+//                        .uuid(UUID.randomUUID())
+//                        .error(ErrorMessage.BAD_REQUEST)
+//                        .message(exception.getMessage())
+//                        .timestamp(LocalDateTime.now())
+//                        .build()
+//        );
+//    }
 
 }
