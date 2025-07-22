@@ -1,6 +1,7 @@
 package az.unitech.mscurrency.controller;
 
 import az.unitech.mscurrency.dto.request.CreateRateRequest;
+import az.unitech.mscurrency.dto.request.ExchangeRateRequest;
 import az.unitech.mscurrency.dto.response.ExchangeRateDto;
 import az.unitech.mscurrency.service.impl.CurrencyRateServiceImpl;
 import jakarta.validation.Valid;
@@ -32,13 +33,13 @@ public class CurrencyController {
     }
 
     @GetMapping
-    public ResponseEntity<ExchangeRateDto> getRate(@RequestParam String from,@RequestParam String to){
-        return ResponseEntity.ok(currencyRateService.getRate(from, to));
+    public ResponseEntity<ExchangeRateDto> getRate(@RequestBody ExchangeRateRequest request){
+        return ResponseEntity.ok(currencyRateService.getRate(request));
     }
 
     @PutMapping("/upd")
-    public  ResponseEntity<ExchangeRateDto> update(@RequestParam String from,@RequestParam String to,@RequestParam BigDecimal rate){
-        return ResponseEntity.ok(currencyRateService.updateRate(from, to, rate));
+    public  ResponseEntity<ExchangeRateDto> update(@RequestBody ExchangeRateRequest request,@RequestParam BigDecimal rate){
+        return ResponseEntity.ok(currencyRateService.updateRate(request, rate));
     }
 
     @DeleteMapping("/del/{id}")
@@ -48,8 +49,8 @@ public class CurrencyController {
     }
 
     @DeleteMapping("/del")
-    public  ResponseEntity<Void> delete(@RequestParam String from,@RequestParam String to){
-        currencyRateService.deleteRate(from,to);
+    public  ResponseEntity<Void> delete(@RequestBody ExchangeRateRequest request){
+        currencyRateService.deleteRate(request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
