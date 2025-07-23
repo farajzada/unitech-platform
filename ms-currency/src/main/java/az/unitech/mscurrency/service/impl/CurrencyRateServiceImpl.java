@@ -5,6 +5,7 @@ import az.unitech.mscurrency.domain.repository.ExchangeRateRepo;
 import az.unitech.mscurrency.dto.request.CreateRateRequest;
 import az.unitech.mscurrency.dto.request.ExchangeRateRequest;
 import az.unitech.mscurrency.dto.response.ExchangeRateDto;
+import az.unitech.mscurrency.exception.AlreadyExistException;
 import az.unitech.mscurrency.exception.RateNotFoundException;
 import az.unitech.mscurrency.mapper.ExchangeRateMapper;
 import az.unitech.mscurrency.service.CurrencyRateService;
@@ -36,8 +37,8 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     @Override
     @CacheEvict(value = "rates", allEntries = true)
     public ExchangeRateDto createRate(CreateRateRequest createRateRequest) {
-        if(!isRateExist(createRateRequest.getBaseCurrency(), createRateRequest.getTargetCurrency())){
-            throw new RateNotFoundException("Currency not found");
+        if(isRateExist(createRateRequest.getBaseCurrency(), createRateRequest.getTargetCurrency())){
+            throw new AlreadyExistException("Exchange rate already exists for "+createRateRequest);
         }
         ExchangeRate exchangeRate=exchangeRateMapper.toEntity(createRateRequest);
         ExchangeRate savedRate=exchangeRateRepo.save(exchangeRate);
