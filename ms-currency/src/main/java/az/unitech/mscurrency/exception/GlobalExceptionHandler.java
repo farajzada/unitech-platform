@@ -13,7 +13,7 @@ import java.util.UUID;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CurrencyFetchException.class)
-    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(CurrencyFetchException exception){
+    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(CurrencyFetchException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 GlobalExceptionResponse.builder()
                         .uuid(UUID.randomUUID())
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RateNotFoundException.class)
-    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(RateNotFoundException exception){
+    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(RateNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 GlobalExceptionResponse.builder()
                         .uuid(UUID.randomUUID())
@@ -36,16 +36,28 @@ public class GlobalExceptionHandler {
         );
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(Exception exception){
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-//                GlobalExceptionResponse.builder()
-//                        .uuid(UUID.randomUUID())
-//                        .error(ErrorMessage.BAD_REQUEST)
-//                        .message(exception.getMessage())
-//                        .timestamp(LocalDateTime.now())
-//                        .build()
-//        );
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(Exception exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                GlobalExceptionResponse.builder()
+                        .uuid(UUID.randomUUID())
+                        .error(ErrorMessage.BAD_REQUEST)
+                        .message(exception.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<GlobalExceptionResponse> currencyFetchHandler(AlreadyExistException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                GlobalExceptionResponse.builder()
+                        .uuid(UUID.randomUUID())
+                        .error(ErrorMessage.ALREADY_EXIST)
+                        .message(exception.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build()
+        );
+    }
 
 }
