@@ -14,4 +14,5 @@ public interface CurrencyRateService {
     ExchangeRateDto updateRate(ExchangeRateRequest exchangeRateRequest, BigDecimal rate);
     void deleteRate(ExchangeRateRequest exchangeRateRequest);
     void deleteRateById(Long id);
+    ExchangeRateDto getRateById(Long id);
 }
