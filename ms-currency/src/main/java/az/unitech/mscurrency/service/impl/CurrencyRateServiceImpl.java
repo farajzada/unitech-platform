@@ -73,4 +73,10 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     public ExchangeRate rateFind(String from,String to){
         return exchangeRateRepo.findByBaseCurrencyAndTargetCurrency(from,to)
                 .orElseThrow(()-> new RateNotFoundException("Exchange rate not found for "+from+" to "+to));    }
+
+    public ExchangeRateDto getRateById(Long id) {
+        ExchangeRate exchangeRate= exchangeRateRepo.findById(id)
+                .orElseThrow(()->new RateNotFoundException("Exchange rate not found with id: "+id));
+        return exchangeRateMapper.toDto(exchangeRate);
+    }
 }

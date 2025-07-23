@@ -5,9 +5,8 @@ import az.unitech.mscurrency.domain.entity.ExchangeRate;
 import az.unitech.mscurrency.domain.repository.ExchangeRateRepo;
 import az.unitech.mscurrency.dto.response.ApiResponseDto;
 import az.unitech.mscurrency.exception.CurrencyFetchException;
-import az.unitech.mscurrency.exception.RateNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +21,8 @@ import java.util.Map;
 public class RateSyncService {
     private final CurrencyApiClient currencyApiClient;
     private final ExchangeRateRepo exchangeRateRepo;
-    private final RedisTemplate<String,Object> redisTemplate;
 
+    @CacheEvict(value = "rates", allEntries = true)
     @Scheduled(fixedRate = 3600000)
     public void sync() {
         ApiResponseDto responseDto = currencyApiClient.getLatestRates("4551f9fa9b38ad61327f6d4d5a6d380c", 1);
@@ -50,10 +49,8 @@ public class RateSyncService {
                     .build();
 
             exchangeRateList.add(exchangeRate);
-
-            String redisKey=entry.getKey()+":"+entry.getValue();
-            redisTemplate.opsForValue().set(redisKey,exchangeRate);
         }
+
         exchangeRateRepo.saveAll(exchangeRateList);
     }
 }
