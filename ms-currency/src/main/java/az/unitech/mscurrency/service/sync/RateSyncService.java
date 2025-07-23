@@ -25,6 +25,7 @@ public class RateSyncService {
     @CacheEvict(value = "rates", allEntries = true)
     @Scheduled(fixedRate = 3600000)
     public void sync() {
+
         ApiResponseDto responseDto = currencyApiClient.getLatestRates("4551f9fa9b38ad61327f6d4d5a6d380c", 1);
 
         boolean success = responseDto.isSuccess();
