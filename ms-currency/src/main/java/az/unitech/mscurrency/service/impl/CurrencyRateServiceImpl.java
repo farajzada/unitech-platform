@@ -36,6 +36,9 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     @Override
     @CacheEvict(value = "rates", allEntries = true)
     public ExchangeRateDto createRate(CreateRateRequest createRateRequest) {
+        if(!isRateExist(createRateRequest.getBaseCurrency(), createRateRequest.getTargetCurrency())){
+            throw new RateNotFoundException("Currency not found");
+        }
         ExchangeRate exchangeRate=exchangeRateMapper.toEntity(createRateRequest);
         ExchangeRate savedRate=exchangeRateRepo.save(exchangeRate);
         return exchangeRateMapper.toDto(savedRate);
@@ -74,6 +77,12 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
         return exchangeRateRepo.findByBaseCurrencyAndTargetCurrency(from,to)
                 .orElseThrow(()-> new RateNotFoundException("Exchange rate not found for "+from+" to "+to));    }
 
+    public boolean isRateExist(String from,String to){
+        return exchangeRateRepo.findByBaseCurrencyAndTargetCurrency(from, to)
+                .isPresent();
+    }
+
+    @Override
     public ExchangeRateDto getRateById(Long id) {
         ExchangeRate exchangeRate= exchangeRateRepo.findById(id)
                 .orElseThrow(()->new RateNotFoundException("Exchange rate not found with id: "+id));
