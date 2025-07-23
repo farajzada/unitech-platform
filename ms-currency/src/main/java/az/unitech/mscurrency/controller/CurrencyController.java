@@ -37,6 +37,11 @@ public class CurrencyController {
         return ResponseEntity.ok(currencyRateService.getRate(request));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ExchangeRateDto> getRateByID(@PathVariable Long id){
+        return ResponseEntity.ok(currencyRateService.getRateById(id));
+    }
+
     @PutMapping("/upd")
     public  ResponseEntity<ExchangeRateDto> update(@RequestBody ExchangeRateRequest request,@RequestParam BigDecimal rate){
         return ResponseEntity.ok(currencyRateService.updateRate(request, rate));
