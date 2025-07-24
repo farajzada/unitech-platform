@@ -38,7 +38,7 @@ public class CurrencyRateServiceImpl implements CurrencyRateService {
     @CacheEvict(value = "rates", allEntries = true)
     public ExchangeRateDto createRate(CreateRateRequest createRateRequest) {
         if(isRateExist(createRateRequest.getBaseCurrency(), createRateRequest.getTargetCurrency())){
-            throw new AlreadyExistException("Exchange rate already exists for "+createRateRequest);
+            throw new AlreadyExistException("Exchange rate already exists for "+createRateRequest.getBaseCurrency()+" to "+createRateRequest.getTargetCurrency());
         }
         ExchangeRate exchangeRate=exchangeRateMapper.toEntity(createRateRequest);
         ExchangeRate savedRate=exchangeRateRepo.save(exchangeRate);
